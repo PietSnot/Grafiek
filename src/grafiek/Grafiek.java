@@ -73,7 +73,7 @@ public class Grafiek extends JPanel {
 //        ;
 
         Function<Double, Double> onoff = x -> abs(Math.floor(x / PI)) % 2 == 0 ? 0d : 1d;
-        var fs = new FourierSeries()
+        var fs = Grafiek.FourierSeries.getInstance()
                 .withConstant(1)
                 .withCosTerm((x, n) -> 0d)
                 .withSinTerm((x, n) -> n % 2 == 0 ? 0d : sin(n * x) * -2 / (n * PI));
@@ -353,6 +353,10 @@ public class Grafiek extends JPanel {
         private Mouski sinTerm = (x, n) -> 0d;
         
         private FourierSeries() {}
+        
+        public static FourierSeries getInstance() {
+            return new FourierSeries();
+        }
         
         public FourierSeries withConstant(double constant) {
             this.constant = constant;
